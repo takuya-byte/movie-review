@@ -10,20 +10,27 @@
   <div class="card">
     <div class="card-body d-flex">
       <section class='review-main'>
-        <h2 class='h2'>本のタイトル</h2>
+        <h2 class='h2'></h2>
         <p class='h2 mb20'>{{ $review->title }}</p>
-        <h2 class='h2'>レビュー本文</h2>
+        <h2 class='h2'></h2>
         <p>{{ $review->body }}</p>
       </section>  
       <aside class='review-image'>
 @if(!empty($review->image))
-        <img class='book-image' src="{{ asset('storage/images/'.$review->image) }}">
+        <img class='movie-image' src="{{ asset( $review->image) }}">
 @else
-        <img class='book-image' src="{{ asset('images/dummy.png') }}">
+        <img class='movie-image' src="{{ asset('images/dummy.png') }}">
 @endif
       </aside>
     </div>
-    <a href="{{ route('index') }}" class='btn btn-info btn-back mb20'>一覧へ戻る</a>
+    <a href="{{ route('index') }}" class='btn btn-info btn-back mb20'>一覧へ</a>
+     {!! Form::model($review, ['route' => ['edit', $review->id], 'method' => 'get']) !!}
+        {!! Form::submit('編集', ['class' => 'btn btn-info  mb20']) !!}
+    {!! Form::close() !!}
+    
+    {!! Form::model($review, ['route' => ['destroy', $review->id], 'method' => 'delete']) !!}
+        {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
+    {!! Form::close() !!}
   </div>
 </div>
 @endsection
