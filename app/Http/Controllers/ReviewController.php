@@ -34,7 +34,7 @@ class ReviewController extends Controller
         $review = new Review;
         $review->title = $request->title;
         $review->body = $request->body;
-        $review->image = Storage::url($request->file('image')->store('public/images'));
+        $review->image =Storage::disk('s3')->url($request->file('image')->store('public/images','s3'));
         $review->user_id = Auth()->id();
         
         $review->save();
@@ -69,12 +69,13 @@ class ReviewController extends Controller
     {
     
      if ($request->hasFile('image')) {
+
         
         $review = Review::findOrFail($id);
         // 映画レビュー更新
         $review->title = $request->title;
         $review->body = $request->body;
-        $review->image = Storage::url($request->file('image')->store('public/images'));
+        $review->image =Storage::disk('s3')->url($request->file('image')->store('public/images','s3'));
         $review->user_id = Auth()->id();
         
         $review->save();
