@@ -17,6 +17,7 @@ class ReviewController extends Controller
     
     public function show($id)
 {
+    
     $review = Review::where('id', $id)->where('status', 1)->first();
 
     return view('show', compact('review'));
@@ -29,6 +30,11 @@ class ReviewController extends Controller
     
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+        'title' => 'required|max:255',
+        'body' => 'required',
+        'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
         if ($request->hasFile('image')) {
     
         $review = new Review;
@@ -67,6 +73,12 @@ class ReviewController extends Controller
     
     public function update(Request $request, $id)
     {
+        
+        $validatedData = $request->validate([
+        'title' => 'required|max:255',
+        'body' => 'required',
+        'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
     
      if ($request->hasFile('image')) {
 
