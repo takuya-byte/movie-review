@@ -9,10 +9,17 @@ use App\Review;
 class ReviewController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-    $reviews = Review::where('status', 1)->orderBy('created_at', 'DESC')->paginate(9);        
+    if($request->filled('keyword')){
+        $keyword = $request->input('keyword');
+        $reviews = Review::where('title','like','%' .$keyword.'%')->paginate(9);
+    } else{
+    $reviews = Review::where('status', 1)->orderBy('created_at', 'DESC')->paginate(9);   
+    }
+         
     return view('index', compact('reviews'));
+    
     }
     
     public function show($id)

@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+@include('search')
 <div class="row justify-content-center">
     @foreach($reviews as $review)
     <div class="col-md-4">
