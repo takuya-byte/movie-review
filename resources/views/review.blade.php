@@ -24,6 +24,10 @@
                 <label>映画のタイトル</label>
                 <input type='text' class='form-control' name='title' placeholder='タイトルを入力'>
               </div>
+              
+             
+              
+              
               <div class="form-group">
               <label>レビュー本文</label>
                 <textarea class='description form-control' name='body' placeholder='本文を入力'></textarea>

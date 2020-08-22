@@ -1,9 +1,13 @@
 <div class='container'>
+
+    
 {{ Form::open(['method' => 'get']) }}
     {{ csrf_field() }}
-    <div class='form-group'>
-        {{ Form::label('keyword','タイトル名: ') }}
-        <div class="col-sm-3">
+    
+    <div class='form-group row'>
+        
+        {{ Form::label('keyword','タイトル名: ',['class' => 'col-sm-2']) }}
+        <div class="col-sm-10">
         {{ Form::text('keyword',null,['class' => 'form-control'])}}
         </div>
         

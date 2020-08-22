@@ -30,3 +30,17 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+// 'vue-star-rating'からStarRatingモジュールをインポート
+import StarRating from 'vue-star-rating';
+
+// Bladeファイルで使用するために、コンポーネント化
+Vue.component('star-rating', StarRating);
+
+// データバインディングの設定
+let star = new Vue({
+el: '#star', // idがstarの要素をとる
+data: {
+rating: 1 // ratingのデフォルト値は1とする
+}
+});

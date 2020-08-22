@@ -4,21 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use App\Review;
+use App\User;
+
 
 class ReviewController extends Controller
 {
     //
-    public function index(Request $request)
+    public function index(Request $request )
     {
+
     if($request->filled('keyword')){
         $keyword = $request->input('keyword');
         $reviews = Review::where('title','like','%' .$keyword.'%')->paginate(9);
     } else{
     $reviews = Review::where('status', 1)->orderBy('created_at', 'DESC')->paginate(9);   
     }
-         
-    return view('index', compact('reviews'));
+     
+    $user = \Auth::user();
+    return view('index', compact('reviews','user'));
     
     }
     
@@ -41,6 +46,7 @@ class ReviewController extends Controller
         'title' => 'required|max:255',
         'body' => 'required',
         'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+        
     ]);
         if ($request->hasFile('image')) {
     
@@ -48,6 +54,7 @@ class ReviewController extends Controller
         $review->title = $request->title;
         $review->body = $request->body;
         $review->image =Storage::disk('s3')->url($request->file('image')->store('public/images','s3'));
+        
         $review->user_id = Auth()->id();
         
         $review->save();
@@ -55,6 +62,7 @@ class ReviewController extends Controller
          $review = new Review;
         $review->title = $request->title;
         $review->body = $request->body;   
+       
          $review->user_id = Auth()->id();
          $review->save();
         }
